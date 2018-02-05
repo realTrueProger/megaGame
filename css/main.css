@@ -1,0 +1,67 @@
+@import "normalize.css";
+
+html, body {
+    width: 100%;
+}
+
+.container {
+    width: 60%;
+    margin: 0 auto;
+}
+
+.container h1 {
+    text-align: center;
+}
+
+.game-field {
+    border: 1px solid black;
+    height: 300px;
+    border-radius: 40px;
+    margin-top: 20px;
+    background-image: url("../img/wood _texture1055.jpg");
+    background-size: cover;
+}
+
+table {
+    margin: 15px auto 0;
+    border-spacing: 10px;
+}
+
+td {
+    border: 1px solid black;
+    width: 36px;
+    height: 50px;
+}
+
+.img1 {
+    background-image: url("../img/1.png");
+    background-size: contain;
+}
+.img2 {
+    background-image: url("../img/2.png");
+    background-size: contain;
+}
+.img3 {
+    background-image: url("../img/3.png");
+    background-size: contain;
+}
+.img4 {
+    background-image: url("../img/4.png");
+    background-size: contain;
+}
+.img5 {
+    background-image: url("../img/5.png");
+    background-size: contain;
+}
+.img6 {
+    background-image: url("../img/6.png");
+    background-size: contain;
+}
+.img7 {
+    background-image: url("../img/7.png");
+    background-size: contain;
+}
+.img8 {
+    background-image: url("../img/8.png");
+    background-size: contain;
+}
