@@ -65,3 +65,7 @@ td {
     background-image: url("../img/8.png");
     background-size: contain;
 }
+.backImg {
+    background-image: url("../img/back.jpg");
+    background-size: cover;
+}
