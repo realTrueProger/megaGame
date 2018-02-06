@@ -13,6 +13,12 @@ function randomPics() {
     }
 }
 
-randomPics();
+function coverWithBackImg () {
+    let tds = document.querySelectorAll('td');
+    for (let i = 0; i < tds.length; i++) {
+        tds[i].classList.add('backImg');
+    }
+}
 
-
+//randomPics();
+coverWithBackImg();
