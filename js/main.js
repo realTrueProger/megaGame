@@ -68,7 +68,7 @@ window.onload = () => {
                     p.innerHTML = 'Это победа. Вы победитель и в игре и по жизни! Мои поздравления.';
                     counterP.style.top = '40%';
                     counterP.style.left = '40%';
-                    counterP.innerHTML = `Всего попыток ${++count}`;
+                    counterP.innerHTML = `Всего попыток ${count}`;
                 }
             }, 500);
 
