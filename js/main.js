@@ -7,6 +7,8 @@ window.onload = () => {
     let toCheck = [];
     let p = document.getElementById('instructions');
     let guesses = 0;
+    let counterP = document.getElementById('tryCounter');
+    let count = 0;
 
     startBtn.addEventListener('click', startGame);
 
@@ -19,6 +21,7 @@ window.onload = () => {
         setTimeout( () => {
             p.innerHTML = 'Теперь пора вспомнить увиденное, раскрывайте карты парами';
             coverWithBackImg();
+            counterP.style.display = 'block';
             gameProcessInit();
         }, 3000);
     }
@@ -52,6 +55,7 @@ window.onload = () => {
         if (arr[0].classList.value === arr[1].classList.value) {
             setTimeout( () => {
                 p.innerHTML = 'Ура! Верно';
+                showCount();
                 arr.forEach( (item) => {
                     item.style.visibility = 'hidden';
                 });
@@ -62,18 +66,28 @@ window.onload = () => {
 
                 if (guesses === 8) {
                     p.innerHTML = 'Это победа. Вы победитель и в игре и по жизни! Мои поздравления.';
+                    counterP.style.top = '40%';
+                    counterP.style.left = '40%';
+                    counterP.innerHTML = `Всего попыток ${++count}`;
                 }
             }, 500);
 
         } else {
             setTimeout( () => {
                 p.innerHTML = 'Увы..неверная пара';
+                showCount();
                 arr.forEach( (item) => {
                     item.classList.toggle('backImg');
                 });
             }, 500);
 
         }
+    }
+
+    // счётчик попыток
+
+    function showCount() {
+        counterP.innerHTML = `Попытки: ${++count}`;
     }
 
     // Заполнение игрового поля картинками
