@@ -23,7 +23,7 @@ window.onload = () => {
             coverWithBackImg();
             counterP.style.display = 'block';
             gameProcessInit();
-        }, 3000);
+        }, 5000);
     }
 
     // Инициализация обработчиков картинок
