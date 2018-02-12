@@ -1,13 +1,14 @@
 // начало игры
 
 window.onload = () => {
-    createTable();
+
     let startBtn = document.getElementById('startBtn');
     let counterP = document.getElementById('tryCounter');
     let p = document.getElementById('instructions');
     let guesses = 0;
     let count = 0;
     let toCheck = [];
+    let views = document.querySelectorAll('.view');
 
     startBtn.addEventListener('click', startGame);
 
@@ -15,6 +16,10 @@ window.onload = () => {
 
     function startGame() {
         startBtn.style.display = 'none';
+        for (let i = 0; i < views.length; i++) {
+            views[i].classList.toggle('view-active');
+        }
+        createTable();
         p.innerHTML = 'Вам необходимо запомнить расположение картинок. Поторопитесь!';
         setTimeout(() => {
             p.innerHTML = 'Теперь пора вспомнить увиденное, раскрывайте карты парами';
@@ -27,7 +32,7 @@ window.onload = () => {
     // Создание таблицы
 
     function createTable() {
-        let gameField = document.querySelector('.game-field'),
+        let gameField = document.querySelector('.view-active .game-field'),
             table = document.createElement('table');
         for (let i = 0; i < 4; i++) {
             let tr = table.insertRow();
@@ -77,10 +82,7 @@ window.onload = () => {
                 // победа в игре
 
                 if (guesses === 8) {
-                    p.innerHTML = 'Это победа. Вы победитель и в игре и по жизни! Мои поздравления.';
-                    counterP.style.top = '40%';
-                    counterP.style.left = '40%';
-                    counterP.innerHTML = `Всего попыток ${count}`;
+                    endGame();
                 }
             }, 500);
         } else {
@@ -93,6 +95,15 @@ window.onload = () => {
                 });
             }, 500);
         }
+    }
+
+    // Победа
+
+    function endGame () {
+        p.innerHTML = 'Это победа. Вы победитель и в игре и по жизни! Мои поздравления.';
+        counterP.style.position = 'relative';
+        counterP.style.marginTop = '130px';
+        counterP.innerHTML = `Всего попыток: ${count}`;
     }
 
     // счётчик попыток
@@ -125,4 +136,18 @@ window.onload = () => {
         }
     }
 
+    // Чит код "*" - мгновенная победа
+
+    document.body.addEventListener('keypress', winSecret);
+
+    function winSecret(e) {
+        if (e.keyCode === 42) {
+            startBtn.style.display = 'none';
+            counterP.style.display = 'block';
+            views[0].classList.remove('view-active');
+            views[1].classList.add('view-active');
+            if (document.querySelector('table')) document.querySelector('table').style.display = 'none';
+            endGame();
+        }
+    }
 };

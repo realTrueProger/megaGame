@@ -8,10 +8,20 @@
 <body>
 <div class="container">
     <h1>Игра</h1>
-    <div class="game-field">
-        <p id="tryCounter"></p>
+
+    <div class="view view-active">
+        <div class="game-field">
+            <h2>Добро пожаловать в игру!</h2>
+            <p>чтобы начать нажмите кнопку</p>
+        </div>
+        <button id="startBtn">начать игру</button>
     </div>
-    <button id="startBtn">начать игру</button>
+    <div class="view">
+        <div class="game-field">
+            <p id="tryCounter"></p>
+        </div>
+    </div>
+
     <p id="instructions"></p>
 </div>
 <script src="js/main.js"></script>
