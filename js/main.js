@@ -2,7 +2,7 @@
 // начало игры
 
 window.onload = () => {
-    coverWithBackImg();
+    createTable();
     let startBtn = document.getElementById('startBtn');
     let toCheck = [];
     let p = document.getElementById('instructions');
@@ -17,13 +17,27 @@ window.onload = () => {
     function startGame(e) {
         startBtn.style.display = 'none';
         p.innerHTML = 'Вам необходимо запомнить расположение картинок. Поторопитесь!';
-        randomPics();
         setTimeout( () => {
             p.innerHTML = 'Теперь пора вспомнить увиденное, раскрывайте карты парами';
             coverWithBackImg();
             counterP.style.display = 'block';
             gameProcessInit();
         }, 5000);
+    }
+
+    // Создание таблицы
+
+    function createTable() {
+        let gameField = document.querySelector('.game-field'),
+            table = document.createElement('table');
+        for (let i = 0; i < 4; i++) {
+            let tr = table.insertRow();
+            for (let j = 0; j < 4; j++) {
+                let td = tr.insertCell();
+            }
+        }
+        gameField.appendChild(table);
+        randomPics();
     }
 
     // Инициализация обработчиков картинок
@@ -100,7 +114,6 @@ window.onload = () => {
             for (let j = 0; j < 2; j++) {
                 let random = Math.floor(Math.random() * tds.length);
                 tds[random].classList.add(pictureClasses[i]);
-                tds[random].classList.toggle('backImg');
                 tds.splice(random, 1);
             }
         }
