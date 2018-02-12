@@ -1,23 +1,22 @@
-
 // начало игры
 
 window.onload = () => {
     createTable();
     let startBtn = document.getElementById('startBtn');
-    let toCheck = [];
+    let counterP = document.getElementById('tryCounter');
     let p = document.getElementById('instructions');
     let guesses = 0;
-    let counterP = document.getElementById('tryCounter');
     let count = 0;
+    let toCheck = [];
 
     startBtn.addEventListener('click', startGame);
 
     // Старт игры по кнопке
 
-    function startGame(e) {
+    function startGame() {
         startBtn.style.display = 'none';
         p.innerHTML = 'Вам необходимо запомнить расположение картинок. Поторопитесь!';
-        setTimeout( () => {
+        setTimeout(() => {
             p.innerHTML = 'Теперь пора вспомнить увиденное, раскрывайте карты парами';
             coverWithBackImg();
             counterP.style.display = 'block';
@@ -52,29 +51,28 @@ window.onload = () => {
     // Отправляем картинки на проверку
 
     function sendToCheck(e) {
+        if (toCheck.length === 2) return;
         e.target.classList.remove('backImg');
-        if(toCheck.indexOf(e.target) === -1) {
+        if (toCheck.indexOf(e.target) === -1) {
             toCheck.push(e.target);
             if (toCheck.length > 1) {
                 check(toCheck);
-                toCheck = [];
             }
         }
-        
     }
 
     // проверка картинок и победа
 
     function check(arr) {
         if (arr[0].classList.value === arr[1].classList.value) {
-            setTimeout( () => {
+            setTimeout(() => {
                 p.innerHTML = 'Ура! Верно';
                 showCount();
-                arr.forEach( (item) => {
+                arr.forEach((item) => {
                     item.style.visibility = 'hidden';
                 });
                 guesses++;
-                console.log(guesses);
+                toCheck = [];
 
                 // победа в игре
 
@@ -85,16 +83,15 @@ window.onload = () => {
                     counterP.innerHTML = `Всего попыток ${count}`;
                 }
             }, 500);
-
         } else {
-            setTimeout( () => {
+            setTimeout(() => {
                 p.innerHTML = 'Увы..неверная пара';
+                toCheck = [];
                 showCount();
-                arr.forEach( (item) => {
+                arr.forEach((item) => {
                     item.classList.toggle('backImg');
                 });
             }, 500);
-
         }
     }
 
@@ -110,7 +107,7 @@ window.onload = () => {
         let pictureClasses = ['img1', 'img2', 'img3', 'img4', 'img5', 'img6', 'img7', 'img8'];
         let tds = document.querySelectorAll('td');
         tds = Array.prototype.slice.call(tds);
-        for(let i = 0; i < pictureClasses.length; i++) {
+        for (let i = 0; i < pictureClasses.length; i++) {
             for (let j = 0; j < 2; j++) {
                 let random = Math.floor(Math.random() * tds.length);
                 tds[random].classList.add(pictureClasses[i]);
@@ -121,7 +118,7 @@ window.onload = () => {
 
     // Рубашка для карт
 
-    function coverWithBackImg () {
+    function coverWithBackImg() {
         let tds = document.querySelectorAll('td');
         for (let i = 0; i < tds.length; i++) {
             tds[i].classList.add('backImg');
