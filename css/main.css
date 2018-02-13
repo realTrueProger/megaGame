@@ -14,6 +14,27 @@ html, body {
     text-align: center;
 }
 
+.container h2 {
+    text-align: center;
+    color: #fff;
+    margin-top: 20%;
+}
+
+.game-field p {
+    text-align: center;
+    color: #fff;
+    margin-top: 10%;
+    font-style: italic;
+}
+
+.view {
+    display: none;
+}
+
+.view-active {
+    display: block;
+}
+
 .game-field {
     border: 1px solid black;
     height: 300px;
@@ -38,34 +59,42 @@ td {
     background-image: url("../img/1.png");
     background-size: contain;
 }
+
 .img2 {
     background-image: url("../img/2.png");
     background-size: contain;
 }
+
 .img3 {
     background-image: url("../img/3.png");
     background-size: contain;
 }
+
 .img4 {
     background-image: url("../img/4.png");
     background-size: contain;
 }
+
 .img5 {
     background-image: url("../img/5.png");
     background-size: contain;
 }
+
 .img6 {
     background-image: url("../img/6.png");
     background-size: contain;
 }
+
 .img7 {
     background-image: url("../img/7.png");
     background-size: contain;
 }
+
 .img8 {
     background-image: url("../img/8.png");
     background-size: contain;
 }
+
 .backImg {
     background-image: url("../img/back.jpg");
     background-size: cover;
