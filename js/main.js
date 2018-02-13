@@ -13,9 +13,9 @@ window.onload = () => {
     // view
 
     let config = [{
-       hash: 'start',
-       viewId: 'start-page'
-    },{
+        hash: 'start',
+        viewId: 'start-page'
+    }, {
         hash: 'game',
         viewId: 'game-page'
     }];
