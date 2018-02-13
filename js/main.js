@@ -10,9 +10,64 @@ window.onload = () => {
     let toCheck = [];
     let views = document.querySelectorAll('.view');
 
-    startBtn.addEventListener('click', startGame);
+    // view
+
+    let config = [{
+       hash: 'start',
+       viewId: 'start-page'
+    },{
+        hash: 'game',
+        viewId: 'game-page'
+    }];
+
+    class Router {
+        constructor(config) {
+            this.config = config;
+            this.COMMON_VIEW_CLASS_NAME = 'view';
+            this.ACTIVE_VIEW_CLASS_NAME = 'view-active';
+
+            window.onhashchange = (e) => {
+                this.handleHashChange(e);
+            };
+        }
+
+        handleHashChange({newURL = '', oldURL = ''}) {
+            if (Router.isSameURL(newURL, oldURL) || newURL.length === 0) {
+                return;
+            }
+
+            let newHash = newURL.split('#')[1];
+            const page = this.config.find(page => {
+                return page.hash === newHash;
+            });
+
+            if (!page) {
+                return;
+            }
+
+            this.render(page.viewId);
+        }
+
+        static isSameURL(newURL, oldURL) {
+            return newURL === oldURL;
+        }
+
+        render(viewId) {
+            const views = Array.from(document.querySelectorAll('.' + this.COMMON_VIEW_CLASS_NAME));
+            const viewToRender = document.getElementById(viewId);
+
+            if (viewToRender) {
+                views.forEach(view => view.classList.remove(this.ACTIVE_VIEW_CLASS_NAME));
+                viewToRender.classList.add(this.ACTIVE_VIEW_CLASS_NAME);
+            }
+        }
+    }
+
+    let router = new Router(config);
 
     // Старт игры по кнопке
+
+    startBtn.addEventListener('click', startGame);
 
     function startGame() {
         startBtn.style.display = 'none';
@@ -99,7 +154,7 @@ window.onload = () => {
 
     // Победа
 
-    function endGame () {
+    function endGame() {
         p.innerHTML = 'Это победа. Вы победитель и в игре и по жизни! Мои поздравления.';
         counterP.style.position = 'relative';
         counterP.style.marginTop = '130px';
