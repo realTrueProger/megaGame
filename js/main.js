@@ -1,28 +1,10 @@
 // начало игры
 
-window.onload = () => {
-
-    let startBtn = document.getElementById('startBtn');
-    let counterP = document.getElementById('tryCounter');
-    let p = document.getElementById('instructions');
-    let guesses = 0;
-    let count = 0;
-    let toCheck = [];
-    let views = document.querySelectorAll('.view');
-
-    // view
-
-    let config = [{
-        hash: 'start',
-        viewId: 'start-page'
-    }, {
-        hash: 'game',
-        viewId: 'game-page'
-    }];
+(function () {
 
     class Router {
-        constructor(config) {
-            this.config = config;
+        constructor(pages) {
+            this.pages = pages;
             this.COMMON_VIEW_CLASS_NAME = 'view';
             this.ACTIVE_VIEW_CLASS_NAME = 'view-active';
 
@@ -37,43 +19,60 @@ window.onload = () => {
             }
 
             let newHash = newURL.split('#')[1];
-            const page = this.config.find(page => {
-                return page.hash === newHash;
+            const page = this.pages.find(page => {
+                return page.pageName === newHash;
             });
 
             if (!page) {
                 return;
             }
 
-            this.render(page.viewId);
+            this.render(page);
         }
 
         static isSameURL(newURL, oldURL) {
             return newURL === oldURL;
         }
 
-        render(viewId) {
+        render(page) {
             const views = Array.from(document.querySelectorAll('.' + this.COMMON_VIEW_CLASS_NAME));
-            const viewToRender = document.getElementById(viewId);
+            const viewToRender = document.getElementById(page.viewId);
 
             if (viewToRender) {
                 views.forEach(view => view.classList.remove(this.ACTIVE_VIEW_CLASS_NAME));
                 viewToRender.classList.add(this.ACTIVE_VIEW_CLASS_NAME);
             }
+
+            page.render();
         }
     }
 
-    let router = new Router(config);
+    class Page {
+        constructor({pageName, viewId}) {
+            this.pageName = pageName;
+            this.viewId = viewId;
+        }
 
-    // Старт игры по кнопке
+        render() {
 
-    startBtn.addEventListener('click', startGame);
+        }
+    }
+
+    class StartPage extends Page {
+
+    }
+
+    class GamePage extends Page {
+        render() {
+            startGame();
+        }
+
+    }
+
+    // Старт игры
 
     function startGame() {
         startBtn.style.display = 'none';
-        for (let i = 0; i < views.length; i++) {
-            views[i].classList.toggle('view-active');
-        }
         createTable();
         p.innerHTML = 'Вам необходимо запомнить расположение картинок. Поторопитесь!';
         setTimeout(() => {
@@ -205,4 +204,26 @@ window.onload = () => {
             endGame();
         }
     }
-};
+
+    let counterP = document.getElementById('tryCounter');
+    let p = document.getElementById('instructions');
+    let guesses = 0;
+    let count = 0;
+    let toCheck = [];
+    let views = document.querySelectorAll('.view');
+
+    // Контроллер
+
+    let startPage = new StartPage({
+        pageName: 'start',
+        viewId: 'start-page'
+    });
+
+    let gamePage = new GamePage({
+        pageName: 'game',
+        viewId: 'game-page'
+    });
+
+    let router = new Router([startPage, gamePage]);
+
+}());
